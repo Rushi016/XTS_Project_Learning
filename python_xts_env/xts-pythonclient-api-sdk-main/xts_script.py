@@ -74,10 +74,10 @@ def main():
                 "StrikePrice", "OptionType",
             ]
 
-            # logging.info(masterdf)
+            #logging.info(masterdf)
 
             # Define the folder and file name to save the CSV file
-            folder_path = r"D:\DJango\python_xts_env\xts-pythonclient-api-sdk-main"  # Specify your folder path
+            folder_path = 'D:\\XTS_Project_Learning\\python_xts_env\\xts-pythonclient-api-sdk-main'  # Specify your folder path
             file_name = "master_response.csv"  # Name of the CSV file
             file_path = os.path.join(folder_path, file_name)
 
@@ -88,12 +88,12 @@ def main():
             masterdf.to_csv(file_path, index=False)
 
             # Log confirmation
-            print(f"Master response data saved to {file_path}")
+            logging.info(f"Master response data saved to {file_path}")
 
         except Exception as e:
-            print(f"Error processing or saving master response: {e}")
+            logging.error(f"Error processing or saving master response: {e}")
     else:
-        print("Error: 'result' not found in the master response.")
+        logging.error("Error: 'result' not found in the master response.")
 
     # Database connection details
     db_host = 'localhost'  # PostgreSQL host
@@ -115,13 +115,13 @@ def main():
     cursor = conn.cursor()
 
     # Path to the CSV file
-    csv_file_path = r'D:\DJango\python_xts_env\xts-pythonclient-api-sdk-main\master_response.csv'
+    csv_file_path = 'D:\\XTS_Project_Learning\\python_xts_env\\xts-pythonclient-api-sdk-main\\master_response.csv'
 
     # Read the CSV into a pandas DataFrame
     df = pd.read_csv(csv_file_path)
 
     # Optionally, preview the first few rows of the DataFrame
-    print(df.head())
+    logging.info(df.head())
 
     # Using SQLAlchemy to simplify the connection and insertion
     engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
@@ -129,34 +129,31 @@ def main():
     # Insert the DataFrame into the PostgreSQL table
     try:
         df.to_sql('master_instruments', engine, if_exists='replace', index=False)
-        print("Data inserted successfully.")
+        logging.info("Data inserted successfully.")
     except Exception as e:
-        print(f"Error: {e}")
+        logging.info(f"Error: {e}")
 
     # Close the connection
     cursor.close()
     conn.close()
 
 if __name__ == "__main__":
-    main()\
+    main()
 
-"""
 
-Output:
+# Output:
+# (python_xts_env) D:\XTS_Learning\python_xts_env\xts-pythonclient-api-sdk-main>python New_script1.py 
+# 2024-11-25 10:11:50,842 - INFO - Interactive Login Successful - New_script1.py:28
+# 2024-11-25 10:11:51,173 - INFO - Marketdata Login Successful - New_script1.py:44
+# 2024-11-25 10:11:55,099 - INFO - Master response data saved to D:\DJango\python_xts_env\xts-pythonclient-api-sdk-main\master_response.csv - New_script1.py:91
+# D:\XTS_Learning\python_xts_env\xts-pythonclient-api-sdk-main\New_script1.py:121: DtypeWarning: Columns (14,17,18) have mixed types. Specify dtype option on import or set low_memory=False.
+#   df = pd.read_csv(csv_file_path)
+# 2024-11-25 10:11:55,508 - INFO -   ExchangeSegment  ExchangeInstrumentID  InstrumentType       Name  ... UnderlyingIndexName ContractExpiration StrikePrice                   OptionType
+# 0           NSECM                 11705               8  XCHANGING  ...        INE692G01013                  1           1   XCHANGING SOLUTIONS LTD-EQ
+# 1           NSECM                 24398               8     EMCURE  ...        INE168P01015                  1           1  EMCURE PHARMACEUTICALS L-EQ
+# 2           NSECM                  4570               8    605RJ26  ...        IN2920210142                  1           1         SDL RJ 6.05% 2026-SG
+# 3           NSECM                 11626               8     WELENT  ...        INE625G01013                  1           1  WELSPUN ENTERPRISES LTD.-EQ
+# 4           NSECM                 24990               8    724MH39  ...        IN2220240195                  1           1         SDL MH 7.24% 2039-SG
 
-(python_xts_env) D:\DJango\python_xts_env\xts-pythonclient-api-sdk-main>python New_script1.py
-2024-11-22 17:46:24,847 - INFO - Interactive Login Successful - New_script1.py:28
-2024-11-22 17:46:25,176 - INFO - Marketdata Login Successful - New_script1.py:44
-Master response data saved to D:\DJango\python_xts_env\xts-pythonclient-api-sdk-main\master_response.csv
-D:\DJango\python_xts_env\xts-pythonclient-api-sdk-main\New_script1.py:121: DtypeWarning: Columns (14,17,18) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(csv_file_path)
-  ExchangeSegment  ExchangeInstrumentID  InstrumentType        Name  ... UnderlyingIndexName ContractExpiration StrikePrice                  OptionType
-0           NSECM                 21026               8   835SCL23A  ...        INE148I07RR7                  1         1.0   SEC RE NCD 10.5% SR IX-YH
-1           NSECM                 25584               8  TRITURBINE  ...        INE152M01016                  1         1.0  TRIVENI TURBINE LIMITED-EQ
-2           NSECM                 22170               8     704UK30  ...        IN3620190097                  1         1.0        SDL UK 7.04% 2030-SG
-3           NSECM                 22497               8     766RJ34  ...        IN2920230413                  1         1.0        SDL RJ 7.66% 2034-SG
-4           NSECM                 18522               8     746GA38  ...        IN1420230097                  1         1.0        SDL GA 7.46% 2038-SG
-
-[5 rows x 19 columns]
-
-"""
+# [5 rows x 19 columns] - New_script1.py:124
+# 2024-11-25 10:12:03,860 - INFO - Data inserted successfully. - New_script1.py:132
