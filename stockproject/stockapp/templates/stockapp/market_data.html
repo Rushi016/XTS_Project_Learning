@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Market Data (First 20 Rows)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Market Data (First 20 Rows)</h1>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ExchangeSegment</th>
+                    <th>ExchangeInstrumentID</th>
+                    <th>InstrumentType</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Series</th>
+                    <th>NameWithSeries</th>
+                    <th>InstrumentID</th>
+                    <th>PriceBand.High</th>
+                    <th>PriceBand.Low</th>
+                    <th>FreezeQty</th>
+                    <th>TickSize</th>
+                    <th>LotSize</th>
+                    <th>Multiplier</th>
+                    <th>UnderlyingInstrumentId</th>
+                    <th>UnderlyingIndexName</th>
+                    <th>ContractExpiration</th>
+                    <th>StrikePrice</th>
+                    <th>OptionType</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in market_data %}
+                <tr>
+                    <td>{{ row.ExchangeSegment }}</td>
+                    <td>{{ row.ExchangeInstrumentID }}</td>
+                    <td>{{ row.InstrumentType }}</td>
+                    <td>{{ row.Name }}</td>
+                    <td>{{ row.Description }}</td>
+                    <td>{{ row.Series }}</td>
+                    <td>{{ row.NameWithSeries }}</td>
+                    <td>{{ row.InstrumentID }}</td>
+                    <td>{{ row.PriceBand.High }}</td>
+                    <td>{{ row.PriceBand.Low }}</td>
+                    <td>{{ row.FreezeQty }}</td>
+                    <td>{{ row.TickSize }}</td>
+                    <td>{{ row.LotSize }}</td>
+                    <td>{{ row.Multiplier }}</td>
+                    <td>{{ row.UnderlyingInstrumentId }}</td>
+                    <td>{{ row.UnderlyingIndexName }}</td>
+                    <td>{{ row.ContractExpiration }}</td>
+                    <td>{{ row.StrikePrice }}</td>
+                    <td>{{ row.OptionType }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="19" class="text-center">No market data available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

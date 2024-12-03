@@ -1,0 +1,42 @@
+{% extends 'stockapp/basic.html' %}
+{% load static %}
+
+{% block title %}
+StockPicker
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'stockapp/css/custom.css' %}">
+<style>
+  /* Styling for the search bar */
+  #stockSearch {
+    text-align: left; /* Align text to the left */
+    direction: ltr;   /* Ensure text input starts from left */
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <!-- Header -->
+      <h1 class="text-center">Broker Dashboard</h1>
+      
+      <!-- Search Bar -->
+      <form>
+        <div class="mb-3">
+          <input
+            id="stockSearch"
+            type="search"
+            class="form-control"
+            placeholder="Search for stocks..."
+            aria-label="Search Stocks"
+            name="stockSearch"
+            dir="ltr" <!-- Left-to-right input direction -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
